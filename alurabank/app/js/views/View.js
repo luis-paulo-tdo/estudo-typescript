@@ -5,7 +5,4 @@ class View {
     update(modelo) {
         this._elemento.innerHTML = this.template(modelo);
     }
-    template(modelo) {
-        throw new Error('Você deve implementar o método template!');
-    }
 }
