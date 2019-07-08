@@ -6,7 +6,7 @@
         "outDir": "app/js",
         "removeComments": true,
         "strictNullChecks": true,
-        "target": "es6",
+        "target": "es6"
      },
      "include": [
          "app/ts/**/*"
