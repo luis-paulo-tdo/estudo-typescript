@@ -19,6 +19,8 @@ export class NegociacaoController {
 
     adiciona(evento: Event) {
 
+        const t1 = performance.now();
+
         evento.preventDefault();
 
         let data = new Date(this._inputData.val().replace(/-/g, ','));
@@ -36,6 +38,9 @@ export class NegociacaoController {
         this._negociacoes.adiciona(negociacao);
         this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update('Negociação adicionada com sucesso.');
+
+        const t2 = performance.now();
+        console.log(`O tempo de execução de adiciona(evento) é de ${t2 - t1} ms.`);
     }
 
     private _flagDiaUtil(data: Date) {
