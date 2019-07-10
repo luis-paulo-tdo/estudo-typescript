@@ -8,6 +8,7 @@ System.register([], function (exports_1, context_1) {
                 const retorno = metodoOriginal.apply(this, args);
                 return retorno;
             };
+            return descriptor;
         };
     }
     exports_1("medirTempoDeExecucao", medirTempoDeExecucao);

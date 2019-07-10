@@ -8,5 +8,6 @@ export function medirTempoDeExecucao() {
             const retorno = metodoOriginal.apply(this, args);
             return retorno;
         }
+        return descriptor;
     }
 }
