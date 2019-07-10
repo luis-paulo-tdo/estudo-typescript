@@ -1,5 +1,6 @@
 import { Negociacao, Negociacoes } from '../models/index';
 import { NegociacoesView, MensagemView } from '../views/index'; 
+import { medirTempoDeExecucao } from '../helpers/decorators/index';
 
 export class NegociacaoController {
 
@@ -17,9 +18,8 @@ export class NegociacaoController {
         this._negociacoesView.update(this._negociacoes);
     }
 
+    @medirTempoDeExecucao()
     adiciona(evento: Event) {
-
-        const t1 = performance.now();
 
         evento.preventDefault();
 
@@ -38,9 +38,6 @@ export class NegociacaoController {
         this._negociacoes.adiciona(negociacao);
         this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update('Negociação adicionada com sucesso.');
-
-        const t2 = performance.now();
-        console.log(`O tempo de execução de adiciona(evento) é de ${t2 - t1} ms.`);
     }
 
     private _flagDiaUtil(data: Date) {

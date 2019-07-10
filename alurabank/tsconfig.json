@@ -1,5 +1,6 @@
  {
      "compilerOptions": {
+        "experimentalDecorators": true,
         "module": "system",
         "noEmitOnError": true,
         "noImplicitAny": true,

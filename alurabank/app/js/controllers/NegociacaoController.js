@@ -1,7 +1,13 @@
-System.register(["../models/index", "../views/index"], function (exports_1, context_1) {
+System.register(["../models/index", "../views/index", "../helpers/decorators/index"], function (exports_1, context_1) {
     "use strict";
+    var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
     var __moduleName = context_1 && context_1.id;
-    var index_1, index_2, NegociacaoController, DiaDaSemana;
+    var index_1, index_2, index_3, NegociacaoController, DiaDaSemana;
     return {
         setters: [
             function (index_1_1) {
@@ -9,6 +15,9 @@ System.register(["../models/index", "../views/index"], function (exports_1, cont
             },
             function (index_2_1) {
                 index_2 = index_2_1;
+            },
+            function (index_3_1) {
+                index_3 = index_3_1;
             }
         ],
         execute: function () {
@@ -23,7 +32,6 @@ System.register(["../models/index", "../views/index"], function (exports_1, cont
                     this._negociacoesView.update(this._negociacoes);
                 }
                 adiciona(evento) {
-                    const t1 = performance.now();
                     evento.preventDefault();
                     let data = new Date(this._inputData.val().replace(/-/g, ','));
                     if (!this._flagDiaUtil(data)) {
@@ -34,13 +42,14 @@ System.register(["../models/index", "../views/index"], function (exports_1, cont
                     this._negociacoes.adiciona(negociacao);
                     this._negociacoesView.update(this._negociacoes);
                     this._mensagemView.update('Negociação adicionada com sucesso.');
-                    const t2 = performance.now();
-                    console.log(`O tempo de execução de adiciona(evento) é de ${t2 - t1} ms.`);
                 }
                 _flagDiaUtil(data) {
                     return data.getDay() !== DiaDaSemana.Sabado && data.getDay() !== DiaDaSemana.Domingo;
                 }
             };
+            __decorate([
+                index_3.medirTempoDeExecucao()
+            ], NegociacaoController.prototype, "adiciona", null);
             exports_1("NegociacaoController", NegociacaoController);
             (function (DiaDaSemana) {
                 DiaDaSemana[DiaDaSemana["Domingo"] = 0] = "Domingo";

@@ -1,3 +1,5 @@
+import { medirTempoDeExecucao } from '../helpers/decorators/index';
+
 export abstract class View<T> {
 
     protected _elemento: JQuery;
@@ -8,18 +10,14 @@ export abstract class View<T> {
         this._escapar = escapar;
     }
 
+    @medirTempoDeExecucao()
     update(modelo: T): void {
-
-        const t1 = performance.now();
 
         let template = this.template(modelo);
         if(this._escapar)
             template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
 
         this._elemento.html(template);
-
-        const t2 = performance.now();
-        console.log(`O tempo de execução de update(modelo) é de ${t2 - t1} ms.`);
     }
     
     abstract template(modelo: T): string;
