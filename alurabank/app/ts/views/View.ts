@@ -10,7 +10,7 @@ export abstract class View<T> {
         this._escapar = escapar;
     }
 
-    @medirTempoDeExecucao()
+    @medirTempoDeExecucao(false)
     update(modelo: T): void {
 
         let template = this.template(modelo);

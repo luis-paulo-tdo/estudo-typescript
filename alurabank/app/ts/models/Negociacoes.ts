@@ -1,4 +1,5 @@
 import { Negociacao } from './Negociacao';
+import { medirTempoDeExecucao } from '../helpers/decorators/index';
 
 export class Negociacoes {
 

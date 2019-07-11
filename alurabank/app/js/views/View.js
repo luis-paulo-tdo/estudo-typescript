@@ -28,7 +28,7 @@ System.register(["../helpers/decorators/index"], function (exports_1, context_1)
                 }
             };
             __decorate([
-                index_1.medirTempoDeExecucao()
+                index_1.medirTempoDeExecucao(false)
             ], View.prototype, "update", null);
             exports_1("View", View);
         }
