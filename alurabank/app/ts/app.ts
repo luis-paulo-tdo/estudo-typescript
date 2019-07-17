@@ -2,5 +2,5 @@ import { NegociacaoController } from './controllers/NegociacaoController';
 
 const controller = new NegociacaoController();
 
-// Utilizando o jQuery.
 $('.form').submit(controller.adiciona.bind(controller));
+$('#botao-importa').click(controller.importa.bind(controller));

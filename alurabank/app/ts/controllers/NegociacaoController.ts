@@ -42,6 +42,29 @@ export class NegociacaoController {
         this._mensagemView.update('Negociação adicionada com sucesso.');
     }
 
+    importa() {
+
+        function flagOk(resposta: Response) {
+
+            if (resposta.ok) {
+                return resposta;
+            } else {
+                throw new Error(resposta.statusText);
+            }
+        }
+
+        fetch('http://localhost:8080/dados')
+            .then(resposta => flagOk(resposta))
+            .then(resposta => resposta.json())
+            .then((dados: any[]) => {
+                dados
+                    .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
+                    .forEach(negociacao => this._negociacoes.adiciona(negociacao));
+                this._negociacoesView.update(this._negociacoes);
+            })
+            .catch(erro => console.log(erro.message));
+    }
+
     private _flagDiaUtil(data: Date) {
         return data.getDay() !== DiaDaSemana.Sabado && data.getDay() !== DiaDaSemana.Domingo;
     }

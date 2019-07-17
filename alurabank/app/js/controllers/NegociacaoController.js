@@ -40,6 +40,26 @@ System.register(["../models/index", "../views/index", "../helpers/decorators/ind
                     this._negociacoesView.update(this._negociacoes);
                     this._mensagemView.update('Negociação adicionada com sucesso.');
                 }
+                importa() {
+                    function flagOk(resposta) {
+                        if (resposta.ok) {
+                            return resposta;
+                        }
+                        else {
+                            throw new Error(resposta.statusText);
+                        }
+                    }
+                    fetch('http://localhost:8080/dados')
+                        .then(resposta => flagOk(resposta))
+                        .then(resposta => resposta.json())
+                        .then((dados) => {
+                        dados
+                            .map(dado => new index_1.Negociacao(new Date(), dado.vezes, dado.montante))
+                            .forEach(negociacao => this._negociacoes.adiciona(negociacao));
+                        this._negociacoesView.update(this._negociacoes);
+                    })
+                        .catch(erro => console.log(erro.message));
+                }
                 _flagDiaUtil(data) {
                     return data.getDay() !== DiaDaSemana.Sabado && data.getDay() !== DiaDaSemana.Domingo;
                 }
