@@ -28,8 +28,7 @@ System.register(["../models/index", "../views/index", "../helpers/decorators/ind
                     this._mensagemView = new index_2.MensagemView('#mensagemView');
                     this._negociacoesView.update(this._negociacoes);
                 }
-                adiciona(evento) {
-                    evento.preventDefault();
+                adiciona() {
                     let data = new Date(this._inputData.val().replace(/-/g, ','));
                     if (!this._flagDiaUtil(data)) {
                         this._mensagemView.update('Somente Negociações em dias úteis, por favor!');
@@ -73,6 +72,12 @@ System.register(["../models/index", "../views/index", "../helpers/decorators/ind
             __decorate([
                 index_3.domInject('#valor')
             ], NegociacaoController.prototype, "_inputValor", void 0);
+            __decorate([
+                index_3.throttle()
+            ], NegociacaoController.prototype, "adiciona", null);
+            __decorate([
+                index_3.throttle()
+            ], NegociacaoController.prototype, "importa", null);
             exports_1("NegociacaoController", NegociacaoController);
             (function (DiaDaSemana) {
                 DiaDaSemana[DiaDaSemana["Domingo"] = 0] = "Domingo";
