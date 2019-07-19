@@ -1,6 +1,7 @@
 import { Negociacao, Negociacoes, NegociacaoParcial } from '../models/index';
 import { NegociacoesView, MensagemView } from '../views/index'; 
 import { domInject, throttle } from '../helpers/decorators/index';
+import { NegociacaoService } from '../services/index';
 
 export class NegociacaoController {
 
@@ -15,8 +16,9 @@ export class NegociacaoController {
 
     private _negociacoes  = new Negociacoes();
     private _negociacoesView = new NegociacoesView('#negociacoesView');
+    private _service = new NegociacaoService();
     private _mensagemView = new MensagemView('#mensagemView');
-
+    
     constructor() {
         this._negociacoesView.update(this._negociacoes);
     }
@@ -53,16 +55,12 @@ export class NegociacaoController {
             }
         }
 
-        fetch('http://localhost:8080/dados')
-            .then(resposta => flagOk(resposta))
-            .then(resposta => resposta.json())
-            .then((dados: NegociacaoParcial[]) => {
-                dados
-                    .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
-                    .forEach(negociacao => this._negociacoes.adiciona(negociacao));
-                this._negociacoesView.update(this._negociacoes);
-            })
-            .catch(erro => console.log(erro.message));
+        this._service
+        .obterNegociacoes(flagOk)
+        .then(negociacoes => {
+            negociacoes.forEach(negociacao => this._negociacoes.adiciona(negociacao));
+            this._negociacoesView.update(this._negociacoes);
+        });
     }
 
     private _flagDiaUtil(data: Date) {
