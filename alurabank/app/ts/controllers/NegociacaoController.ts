@@ -46,18 +46,16 @@ export class NegociacaoController {
     @throttle()
     importa() {
 
-        function flagOk(resposta: Response) {
+        this._service
+        .obterNegociacoes((resposta) => {
 
             if (resposta.ok) {
                 return resposta;
             } else {
                 throw new Error(resposta.statusText);
             }
-        }
-
-        this._service
-        .obterNegociacoes(flagOk)
-        .then(negociacoes => {
+        })
+        .then((negociacoes: Negociacao[]) => {
             negociacoes.forEach(negociacao => this._negociacoes.adiciona(negociacao));
             this._negociacoesView.update(this._negociacoes);
         });

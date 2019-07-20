@@ -2,7 +2,7 @@ import { Negociacao, NegociacaoParcial } from "../models/index";
 
 export class NegociacaoService {
 
-    obterNegociacoes(handler: Function): Promise<void | Negociacao[]> {
+    obterNegociacoes(handler: HandlerFunction): Promise<void | Negociacao[]> {
 
         return fetch('http://localhost:8080/dados')
             .then(resposta => handler(resposta))
@@ -12,4 +12,9 @@ export class NegociacaoService {
             )
             .catch(erro => console.log(erro));
     }
+}
+
+export interface HandlerFunction {
+    
+    (res: Response): Response;
 }
