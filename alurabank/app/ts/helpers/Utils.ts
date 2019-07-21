@@ -1,6 +1,6 @@
-import { Negociacao } from "../models/index";
+import { Imprimivel } from "../models/index";
 
-export function imprime(...negociacoes: Negociacao[]) {
+export function imprime(...imprimiveis: Imprimivel[]) {
 
-    negociacoes.forEach(negociacao => negociacao.paraTexto());
+    imprimiveis.forEach(imprimivel => imprimivel.paraTexto());
 }
