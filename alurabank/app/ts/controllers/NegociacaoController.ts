@@ -59,7 +59,16 @@ export class NegociacaoController {
             }
         })
         .then((negociacoes: Negociacao[]) => {
-            negociacoes.forEach(negociacao => this._negociacoes.adiciona(negociacao));
+            
+            const negociacoesExistentes = this._negociacoes.paraArray();
+
+            negociacoes.filter(negociacao => 
+                !negociacoesExistentes.some(existente => 
+                    negociacao.flagIgual(existente)
+                )
+            ).forEach(negociacao => 
+                this._negociacoes.adiciona(negociacao)
+            );
             this._negociacoesView.update(this._negociacoes);
         });
     }
