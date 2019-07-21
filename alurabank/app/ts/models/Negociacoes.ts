@@ -1,8 +1,7 @@
-import { Imprimivel } from './Imprimivel';
-import { Igualavel } from './Igualavel';
+import { Objeto } from './Objeto';
 import { Negociacao } from './Negociacao';
 
-export class Negociacoes implements Imprimivel, Igualavel<Negociacoes> {
+export class Negociacoes implements Objeto<Negociacoes> {
 
     private _negociacoes: Negociacao[] = [];
 
