@@ -47,33 +47,33 @@ export class NegociacaoController {
     }
 
     @throttle()
-    importa() {
+    async importa() {
 
-        this._service
-        .obterNegociacoes((resposta) => {
+        try {
 
-            if (resposta.ok) {
-                return resposta;
-            } else {
-                throw new Error(resposta.statusText);
-            }
-        })
-        .then((negociacoes: Negociacao[]) => {
-            
+            const negociacoesParaImportar = await this._service.obterNegociacoes((resposta) => {
+
+                if (resposta.ok) {
+                    return resposta;
+                } else {
+                    throw new Error(resposta.statusText);
+                }
+            });
+                
             const negociacoesExistentes = this._negociacoes.paraArray();
-
-            negociacoes.filter(negociacao => 
+    
+            negociacoesParaImportar.filter(negociacao => 
                 !negociacoesExistentes.some(existente => 
                     negociacao.flagIgual(existente)
                 )
             ).forEach(negociacao => 
                 this._negociacoes.adiciona(negociacao)
             );
-            this._negociacoesView.update(this._negociacoes);
-        })
-        .catch(erro => {
+            this._negociacoesView.update(this._negociacoes);     
+
+        } catch(erro) {
             this._mensagemView.update(erro.message);
-        });
+        }
     }
 
     private _flagDiaUtil(data: Date) {
